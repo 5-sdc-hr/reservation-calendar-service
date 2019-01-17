@@ -9,3 +9,5 @@ db/config.js
 yarn.lock
 reservations.csv
 restaurants.csv
+newrelic_agent.log
+newrelic.js
