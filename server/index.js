@@ -2,19 +2,16 @@
 const newrelic = require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 const db = require('../db');
 
 const app = express();
 
 app.use('/restaurants/:id/', express.static(`${__dirname}/../client/dist`));
 app.use(bodyParser());
-app.use(cors());
 
 app.get('/api/reservations/restaurantID=:restaurantID&date=:date', (req, res) => {
   db.getReservations(req.params.restaurantID, req.params.date, (err, results) => {
     if (err) {
-      console.log(err);
       res.sendStatus(400);
     } else {
       res.send(results);
@@ -23,7 +20,6 @@ app.get('/api/reservations/restaurantID=:restaurantID&date=:date', (req, res) =>
 });
 
 app.post('/api/reservations/', (req, res) => {
-  console.log(req.body);
   db.addReservation(req.body.restaurantID, req.body.date,
     req.body.time, req.body.partySize, (err) => {
       if (err) {
