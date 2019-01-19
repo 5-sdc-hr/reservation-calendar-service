@@ -4,13 +4,13 @@ const config = require('./config.js');
 const pool = new Pool(config);
 
 const addReservation = (restaurantID, dateToReserve, timeToReserve, partySize, callback) => {
-  pool.query(`INSERT INTO reservations (restaurantid, date, time, party, string) VALUES (${restaurantID}, ${dateToReserve}, ${timeToReserve}, ${partySize}, 'INSERT');`)
+  pool.query(`INSERT INTO reservations (restaurantid, date, time, party, string) VALUES (${restaurantID}, '${dateToReserve}', '${timeToReserve}', ${partySize}, 'INSERT');`)
     .then(result => callback(null, result))
     .catch(err => callback(err));
 };
 
 const getReservations = (restaurantID, dateToReserve, callback) => {
-  pool.query(`SELECT * FROM reservations WHERE restaurantid = ${restaurantID} AND date = ${dateToReserve}`)
+  pool.query(`SELECT * FROM reservations WHERE restaurantid = ${restaurantID} AND date = '${dateToReserve}'`)
     .then(results => callback(null, results.rows))
     .catch(err => callback(err));
 };

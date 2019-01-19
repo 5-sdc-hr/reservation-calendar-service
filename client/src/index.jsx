@@ -88,7 +88,8 @@ export default class App extends React.Component {
       url: `http://localhost:3002/api/reservations/restaurantID=${restaurantID}&date=${dateToReserve}`,
       type: 'GET',
       success: (success) => {
-        this.mapAvailableTimes(JSON.parse(success));
+        console.log(success);
+        this.mapAvailableTimes(success);
       },
       error: (err) => {
         throw err;
@@ -186,11 +187,14 @@ export default class App extends React.Component {
     const availableTimes = timeOptions.slice().map((timeSlot) => {
       return timeSlot.props.value.toString();
     });
+
     reservationArray.forEach((reservation) => {
-      if (availableTimes.indexOf(reservation.timeToReserve) !== -1) {
-        availableTimes.splice(availableTimes.indexOf(reservation.timeToReserve), 1);
+      console.log(reservation);
+      if (availableTimes.indexOf(reservation.time) !== -1) {
+        availableTimes.splice(availableTimes.indexOf(reservation.time), 1);
       }
     });
+
     const mappedTimes = [];
     let middleIndex = -1;
     let approxRequestedTimeLeft = selectedTime;

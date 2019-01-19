@@ -20,6 +20,7 @@ app.get('/api/reservations/restaurantID=:restaurantID&date=:date', (req, res) =>
 });
 
 app.post('/api/reservations/', (req, res) => {
+  console.log(req.body);
   db.addReservation(req.body.restaurantID, req.body.date,
     req.body.time, req.body.partySize, (err) => {
       if (err) {
