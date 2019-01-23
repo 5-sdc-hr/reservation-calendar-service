@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Widget from './components/Widget/Widget.jsx';
+import Widget from './components/widget/widget.jsx';
 import GlobalStyle from './globalstyle';
 
 const format = require('date-fns/format');
