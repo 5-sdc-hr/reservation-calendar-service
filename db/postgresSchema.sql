@@ -23,7 +23,6 @@ CREATE TABLE reservations (
   date varchar(6) NOT NULL,
   time varchar(4) NOT NULL,
   party varchar(2) NOT NULL,
-  string varchar(20) NOT NULL,
   PRIMARY KEY (id)
 );
 
