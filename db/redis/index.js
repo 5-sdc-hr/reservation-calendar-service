@@ -14,7 +14,7 @@ client.on('error', (err) => {
   console.error(err);
 });
 
-const read = (id, cb) => {
+const readCache = (id, cb) => {
   client.get(id, (err, res) => {
     if (err) {
       cb(err);
@@ -24,17 +24,17 @@ const read = (id, cb) => {
   });
 };
 
-const write = (record, cb) => {
+const writeCache = (record, cb) => {
   client.set(record.id, JSON.stringify(record), 'EX', 300, (err) => {
     if (err) {
       cb(err);
     } else {
-      read(record.id, cb);
+      readCache(record.id, cb);
     }
   });
 };
 
 module.exports = {
-  write,
-  read,
+  writeCache,
+  readCache,
 };
