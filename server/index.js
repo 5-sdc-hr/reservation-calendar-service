@@ -23,7 +23,6 @@ app.post('/api/reservations/', (req, res) => {
   db.addReservation(req.body.restaurantID, req.body.date,
     req.body.time, req.body.partySize, (err) => {
       if (err) {
-        console.log(err);
         res.sendStatus(500);
       } else {
         res.end('Reservation Created');
@@ -34,7 +33,6 @@ app.post('/api/reservations/', (req, res) => {
 app.delete('/api/reservations', (req, res) => {
   db.deleteReservation(req.body.restaurantID, req.body.date, req.body.time, (err) => {
     if (err) {
-      console.log(err);
       res.sendStatus(500);
     } else {
       res.end('Reservation Deleted');
@@ -46,7 +44,6 @@ app.patch('/api/reservations', (req, res) => {
   db.updateReservation(req.body.restaurantID, req.body.oldDate,
     req.body.oldTime, req.body.newDate, req.body.newTime, (err) => {
       if (err) {
-        console.log(err);
         res.sendStatus(500);
       } else {
         res.end('UPDATED');
@@ -56,5 +53,6 @@ app.patch('/api/reservations', (req, res) => {
 
 const port = 3002;
 app.listen(port, () => {
+  /* eslint-disable-next-line */
   console.log(`listening on port ${port}`);
 });
