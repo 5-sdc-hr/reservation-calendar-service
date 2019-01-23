@@ -32,6 +32,7 @@
     "react-datepicker": "^2.0.0",
     "react-dom": "^16.7.0",
     "react-router-dom": "^4.3.1",
+    "redis": "^2.8.0",
     "sequelize": "^4.42.0",
     "styled-components": "^4.1.3"
   },
