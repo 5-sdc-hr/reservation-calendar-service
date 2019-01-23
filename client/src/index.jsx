@@ -188,7 +188,6 @@ export default class App extends React.Component {
     });
 
     reservationArray.forEach((reservation) => {
-      console.log(reservation);
       if (availableTimes.indexOf(reservation.time) !== -1) {
         availableTimes.splice(availableTimes.indexOf(reservation.time), 1);
       }
