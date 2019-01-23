@@ -88,11 +88,9 @@ export default class App extends React.Component {
       url: `/api/reservations/restaurantID=${restaurantID}&date=${dateToReserve}`,
       type: 'GET',
       success: (success) => {
-        console.log(success);
         this.mapAvailableTimes(success);
       },
       error: (err) => {
-        console.log(err, 'ERROR')
         throw err;
       },
     });
