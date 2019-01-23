@@ -92,6 +92,7 @@ export default class App extends React.Component {
         this.mapAvailableTimes(success);
       },
       error: (err) => {
+        console.log(err, 'ERROR')
         throw err;
       },
     });
