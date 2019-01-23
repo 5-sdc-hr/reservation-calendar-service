@@ -12,8 +12,10 @@ app.use(bodyParser());
 app.get('/api/reservations/restaurantID=:restaurantID&date=:date', (req, res) => {
   db.getReservations(req.params.restaurantID, req.params.date, (err, results) => {
     if (err) {
+      console.log(err);
       res.sendStatus(500);
     } else {
+      console.log(results);
       res.send(results);
     }
   });
