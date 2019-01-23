@@ -51,7 +51,7 @@ app.patch('/api/reservations', (req, res) => {
     });
 });
 
-const port = 3002;
+const port = process.env.PORT || 3002;
 app.listen(port, () => {
   /* eslint-disable-next-line */
   console.log(`listening on port ${port}`);
