@@ -23,6 +23,7 @@ app.post('/api/reservations/', (req, res) => {
   db.addReservation(req.body.restaurantID, req.body.date,
     req.body.time, req.body.partySize, (err) => {
       if (err) {
+        console.log(err);
         res.sendStatus(500);
       } else {
         res.end('Reservation Created');

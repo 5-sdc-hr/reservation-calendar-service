@@ -4,7 +4,7 @@ const config = require('./config.js');
 const pool = new Pool(config);
 
 const addReservation = (restaurantID, dateToReserve, timeToReserve, partySize, callback) => {
-  pool.query(`INSERT INTO reservations (restaurantid, date, time, party, string) VALUES (${restaurantID}, '${dateToReserve}', '${timeToReserve}', ${partySize}, 'INSERT');`)
+  pool.query(`INSERT INTO reservations (restaurantid, date, time, party) VALUES (${restaurantID}, '${dateToReserve}', '${timeToReserve}', ${partySize});`)
     .then(result => callback(null, result))
     .catch(err => callback(err));
 };
