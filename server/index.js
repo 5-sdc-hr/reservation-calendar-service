@@ -15,7 +15,6 @@ app.get('/api/reservations/restaurantID=:restaurantID&date=:date', (req, res) =>
       console.log(err);
       res.sendStatus(500);
     } else {
-      console.log(results);
       res.send(results);
     }
   });

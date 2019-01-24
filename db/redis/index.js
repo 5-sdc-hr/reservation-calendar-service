@@ -14,6 +14,21 @@ client.on('error', (err) => {
   console.error(err);
 });
 
+client.set('maxmemory', '100mb', (err, res) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(`config set: ${res}`);
+  }
+});
+client.set('maxmemory-policy', 'allkeys-lru', (err, res) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(`config set: ${res}`);
+  }
+});
+
 const readCache = (id, cb) => {
   client.get(id, (err, res) => {
     if (err) {
@@ -24,12 +39,10 @@ const readCache = (id, cb) => {
   });
 };
 
-const writeCache = (record, cb) => {
-  client.set(record.id, JSON.stringify(record), 'EX', 300, (err) => {
+const writeCache = (record) => {
+  client.set(record[0].restaurantid, JSON.stringify(record), 'EX', 15, (err) => {
     if (err) {
-      cb(err);
-    } else {
-      readCache(record.id, cb);
+      throw err;
     }
   });
 };

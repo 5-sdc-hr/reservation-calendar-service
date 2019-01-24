@@ -1,5 +1,6 @@
 const { Pool } = require('pg');
 const config = require('./config.js');
+const { writeCache, readCache } = require('./redis/index');
 
 const pool = new Pool(config);
 
@@ -9,10 +10,29 @@ const addReservation = (restaurantID, dateToReserve, timeToReserve, partySize, c
     .catch(err => callback(err));
 };
 
+/*
+ *
+ * Try to get the reservations from the Cache
+ * If the reservation does not exist in the cache,
+ * pull the result from the postgres db
+ * then on successfull get request, write that to the cache
+ *
+ */
+
 const getReservations = (restaurantID, dateToReserve, callback) => {
-  pool.query(`SELECT * FROM reservations WHERE restaurantid = ${restaurantID} AND date = '${dateToReserve}'`)
-    .then(results => callback(null, results.rows))
-    .catch(err => callback(err));
+  readCache(restaurantID, (err, res) => {
+    if (err || res === null) {
+      // Either cache failed or doesn't have it
+      pool.query(`SELECT * FROM reservations WHERE restaurantid = ${restaurantID} AND date = '${dateToReserve}'`)
+        .then((results) => {
+          callback(null, results.rows);
+          writeCache(results.rows);
+        })
+        .catch(err => callback(err));
+    } else {
+      callback(null, res);
+    }
+  });
 };
 
 const deleteReservation = (restaurantID, dateToDelete, timeToDelete, callback) => {
