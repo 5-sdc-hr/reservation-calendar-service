@@ -3,11 +3,12 @@ const newrelic = require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('../db');
-
+const morgan = require('morgan');
 const app = express();
 
 app.use('/restaurants/:id/', express.static(`${__dirname}/../client/dist`));
 app.use(bodyParser());
+app.use(morgan('tiny'));
 
 app.get('/api/reservations/restaurantID=:restaurantID&date=:date', (req, res) => {
   db.getReservations(req.params.restaurantID, req.params.date, (err, results) => {
@@ -15,7 +16,6 @@ app.get('/api/reservations/restaurantID=:restaurantID&date=:date', (req, res) =>
       console.log(err);
       res.sendStatus(500);
     } else {
-      console.log(results);
       res.send(results);
     }
   });
@@ -51,6 +51,10 @@ app.patch('/api/reservations', (req, res) => {
         res.end('UPDATED');
       }
     });
+});
+
+app.get('/loaderio-b64a936f824d903557ed3376d3b94e3d/', (req, res) => { 
+  res.sendFile('/home/ec2-user/reservation-calendar-service/loaderio');
 });
 
 const port = process.env.PORT || 3002;
